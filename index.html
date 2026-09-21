@@ -1,0 +1,2731 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QRDine · Product Showcase</title>
+  <meta name="description"
+    content="QRDine: scan the QR on the table, browse the menu, order and pay. A multi-tenant QR table-ordering platform for restaurants, built with Node.js, PostgreSQL, React and Socket.IO.">
+  <meta name="theme-color" content="#E4572E">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="QRDine · Product Showcase">
+  <meta property="og:description"
+    content="Scan-to-order menus, a kitchen display, table sessions and GST billing — one Node.js backend serving many restaurants.">
+  <!-- After deploying, replace with an absolute URL, e.g. https://<user>.github.io/qrdine-showcase/assets/images/og.png -->
+  <meta property="og:image" content="assets/images/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="apple-touch-icon" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      /* QRDine "Tandoori": ember orange on warm ivory, espresso ink, veg-mark green */
+      --ember: #E4572E;
+      --ember-text: #B33C18;
+      /* ember that passes AA on ivory */
+      --btn: #C7401C;
+      --btn-hover: #A93413;
+      --gold: #F2A541;
+      --veg: #0F8A5F;
+      --veg-text: #0A6B49;
+      --ivory: #FAF7F2;
+      --ivory-2: #F3EDE4;
+      --paper: #FFFFFF;
+      --ink: #17120E;
+      --ink-2: #463A31;
+      --muted: #756759;
+      --line: #EBE2D6;
+      --line-2: #DCCEBC;
+      --night: #140F0B;
+      --night-2: #221A13;
+      --night-text: #F6EFE6;
+      --night-muted: #BCAA98;
+      --radius: 20px;
+      --shadow: 0 1px 2px rgba(50, 25, 10, .06), 0 14px 36px -14px rgba(90, 45, 15, .22);
+      --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+      --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --gutter: 16px;
+      --max: 1160px;
+    }
+
+    @media (min-width: 720px) {
+      :root {
+        --gutter: 28px;
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    video,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--ember);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    section {
+      scroll-margin-top: 76px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: .92em;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      flex: none;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .icon-fill {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font: 600 15px/1 var(--font-body);
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: background-color .18s, border-color .18s, transform .18s, box-shadow .18s;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn-primary {
+      background: var(--btn);
+      color: #fff;
+      box-shadow: 0 10px 24px -10px rgba(199, 64, 28, .7);
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-hover);
+    }
+
+    .btn-ghost {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--line-2);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ember);
+      color: var(--ember-text);
+    }
+
+    .btn .icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ---------- Nav ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 247, 242, .84);
+      backdrop-filter: saturate(1.4) blur(14px);
+      -webkit-backdrop-filter: saturate(1.4) blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+
+    .nav.scrolled {
+      border-bottom-color: var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: 64px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+    }
+
+    .brand span {
+      font: 700 20px/1 var(--font-display);
+      letter-spacing: -.01em;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      background: var(--ivory-2);
+      color: var(--ember-text);
+    }
+
+    .nav .btn {
+      min-height: 40px;
+      padding: 0 16px;
+      font-size: 14px;
+    }
+
+    @media (min-width: 940px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(55% 60% at 85% 32%, rgba(228, 87, 46, .16), transparent 70%),
+        radial-gradient(42% 46% at 0% 100%, rgba(242, 165, 65, .15), transparent 70%),
+        var(--ivory);
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+      padding-top: 48px;
+      padding-bottom: 72px;
+    }
+
+    @media (min-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1.08fr .92fr;
+        padding-top: 72px;
+        padding-bottom: 92px;
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ember-text);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      background: var(--ember);
+      border-radius: 2px;
+    }
+
+    .hero h1 {
+      margin: 14px 0 0;
+      font: 800 clamp(48px, 8.4vw, 92px)/.98 var(--font-display);
+      letter-spacing: -.02em;
+      background: linear-gradient(104deg, var(--ink) 0%, var(--ink) 46%, #C7401C 62%, #F07A3E 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero .lead {
+      margin: 20px 0 0;
+      max-width: 36ch;
+      font-size: clamp(18px, 2.2vw, 22px);
+      line-height: 1.5;
+      color: var(--ink-2);
+    }
+
+    .byline {
+      margin: 22px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 14px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .byline strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .byline a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .byline a:hover {
+      color: var(--ember-text);
+      text-decoration: underline;
+    }
+
+    .byline .sep {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--line-2);
+    }
+
+    @media (max-width: 520px) {
+      .byline .sep {
+        display: none;
+      }
+    }
+
+    .contact-links {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .contact-links a {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line-2);
+      background: var(--paper);
+      color: var(--ink-2);
+    }
+
+    .contact-links a:hover {
+      color: var(--ember-text);
+      border-color: var(--ember);
+    }
+
+    .contact-links .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero-ctas {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stack-line {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stack-line span {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-2);
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      border: 1px solid var(--line);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      place-items: center;
+      min-height: 540px;
+    }
+
+    .hero-visual .halo {
+      position: absolute;
+      width: min(460px, 92%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(228, 87, 46, .32), rgba(242, 165, 65, .1) 55%, transparent 70%);
+    }
+
+    .hero-visual .mark {
+      position: absolute;
+      width: min(520px, 100%);
+      opacity: .05;
+      pointer-events: none;
+    }
+
+    .float-chip {
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .float-chip small {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .float-chip .chip-icon {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: var(--ivory-2);
+      color: var(--ember-text);
+    }
+
+    .float-chip .chip-icon .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .chip-scan {
+      top: 10%;
+      left: -6px;
+    }
+
+    .chip-live {
+      bottom: 12%;
+      right: -6px;
+    }
+
+    @media (min-width: 960px) {
+
+      /* Sit beside the phone rather than on top of the menu content */
+      .chip-scan {
+        top: 8%;
+        left: -48px;
+      }
+
+      .chip-live {
+        bottom: 15%;
+        right: -48px;
+      }
+    }
+
+    @media (max-width: 719px) {
+
+      /* Not enough room to float beside the phone — stack the chips under it */
+      .hero-visual {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        min-height: 0;
+      }
+
+      .hero-shot {
+        order: 0;
+      }
+
+      .float-chip {
+        position: static;
+        order: 1;
+        width: 100%;
+        max-width: 290px;
+        padding: 9px 12px;
+        font-size: 12.5px;
+        white-space: normal;
+      }
+    }
+
+    .live-dot {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #16A34A;
+      flex: none;
+    }
+
+    .live-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #16A34A;
+      animation: ping 1.8s ease-out infinite;
+    }
+
+    @keyframes ping {
+      from {
+        transform: scale(1);
+        opacity: .7;
+      }
+
+      to {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .live-dot::after {
+        animation: none;
+      }
+    }
+
+    .hero-shot {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 100%;
+    }
+
+    .hero-img {
+      width: min(440px, 100%);
+      height: auto;
+      filter: drop-shadow(0 34px 38px rgba(90, 40, 10, .24));
+    }
+
+    .screen-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    /* ---------- Device frames ---------- */
+    .device {
+      position: relative;
+      z-index: 2;
+    }
+
+    .phone {
+      position: relative;
+      width: min(290px, 74vw);
+      aspect-ratio: 9 / 19.5;
+      border-radius: 46px;
+      padding: 11px;
+      background: linear-gradient(145deg, #2f2823, #100c09);
+      box-shadow: 0 40px 70px -30px rgba(90, 40, 10, .55), 0 0 0 1.5px #3b332c inset, 0 0 0 4px rgba(255, 255, 255, .5);
+    }
+
+    .phone .screen {
+      position: absolute;
+      inset: 11px;
+      border-radius: 36px;
+      overflow: hidden;
+      background: #120c08;
+    }
+
+    .phone::after {
+      /* dynamic island */
+      content: "";
+      position: absolute;
+      z-index: 4;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 84px;
+      height: 24px;
+      border-radius: 20px;
+      background: #000;
+    }
+
+    /* Wide / desktop frame: browser chrome instead of an island */
+    .device.wide,
+    .device.is-landscape {
+      width: 100%;
+    }
+
+    .device.wide .phone,
+    .device.is-landscape .phone {
+      width: min(660px, 100%);
+      margin: 0 auto;
+      aspect-ratio: 16 / 10;
+      border-radius: 18px;
+      padding: 30px 8px 8px;
+    }
+
+    .device.wide .phone .screen,
+    .device.is-landscape .phone .screen {
+      inset: 30px 8px 8px;
+      border-radius: 10px;
+    }
+
+    .device.wide .phone::after,
+    .device.is-landscape .phone::after {
+      top: 11px;
+      left: 16px;
+      transform: none;
+      width: 46px;
+      height: 9px;
+      border-radius: 0;
+      background:
+        radial-gradient(circle 4.5px at 4.5px 4.5px, #55493f 98%, transparent 100%),
+        radial-gradient(circle 4.5px at 23px 4.5px, #55493f 98%, transparent 100%),
+        radial-gradient(circle 4.5px at 41.5px 4.5px, #55493f 98%, transparent 100%);
+    }
+
+    .screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .device.wide .screen video,
+    .device.is-landscape .screen video {
+      object-fit: contain;
+      background: #000;
+    }
+
+    .screen-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px;
+      text-align: center;
+      color: var(--night-text);
+      background: radial-gradient(80% 60% at 50% 35%, rgba(228, 87, 46, .32), transparent 70%), linear-gradient(180deg, #221A13, #120c08);
+    }
+
+    .screen-ph img {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+    }
+
+    .screen-ph b {
+      font: 700 18px/1.2 var(--font-display);
+    }
+
+    .screen-ph span {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--night-muted);
+      max-width: 26ch;
+    }
+
+    .screen-ph code {
+      font-size: 11px;
+      color: var(--gold);
+      word-break: break-all;
+    }
+
+    .device-ctrls {
+      position: absolute;
+      z-index: 5;
+      right: 22px;
+      bottom: 22px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .device.wide .device-ctrls,
+    .device.is-landscape .device-ctrls {
+      right: 16px;
+      bottom: 16px;
+    }
+
+    .device-ctrls button {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: rgba(18, 12, 8, .55);
+      color: #fff;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .device-ctrls button:hover {
+      background: rgba(199, 64, 28, .85);
+    }
+
+    .device-ctrls .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ---------- Built-in menu mock (shown when no hero image is set) ---------- */
+    .mock {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      background: #FFFDFA;
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.35;
+      padding: 52px 14px 0;
+      user-select: none;
+    }
+
+    .mock-top {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding-bottom: 12px;
+    }
+
+    .mock-logo {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #E4572E, #C7401C);
+      color: #fff;
+      font: 700 12px/1 var(--font-display);
+    }
+
+    .mock-top b {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .mock-top small {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .mock-top small i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #16A34A;
+    }
+
+    .mock-search {
+      padding: 8px 11px;
+      border-radius: 10px;
+      background: var(--ivory-2);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .mock-cats {
+      display: flex;
+      gap: 6px;
+      margin: 11px 0 4px;
+      overflow: hidden;
+    }
+
+    .mock-cats span {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--ink-2);
+      white-space: nowrap;
+    }
+
+    .mock-cats span.on {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .mock-list {
+      display: grid;
+      gap: 8px;
+      padding: 8px 0;
+    }
+
+    .mock-dish {
+      display: grid;
+      grid-template-columns: 14px 1fr auto;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .mock-dish b {
+      display: block;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .mock-dish small {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .mock-dish .price {
+      font-size: 12px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mock-dish.out {
+      opacity: .55;
+    }
+
+    .mock-dish.out .price {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .vegmark {
+      display: grid;
+      place-items: center;
+      width: 14px;
+      height: 14px;
+      border: 1.4px solid var(--veg);
+      border-radius: 3px;
+    }
+
+    .vegmark::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--veg);
+    }
+
+    .vegmark.non {
+      border-color: #B3261E;
+    }
+
+    .vegmark.non::after {
+      background: #B3261E;
+    }
+
+    .mock-cart {
+      margin-top: auto;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .mock-cart span {
+      font-size: 11px;
+      color: #E8DED4;
+    }
+
+    .mock-cart b {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--ember);
+    }
+
+    /* ---------- Section scaffolding ---------- */
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-tint {
+      background: var(--ivory-2);
+    }
+
+    .section-head {
+      max-width: 730px;
+      margin-bottom: 44px;
+    }
+
+    .section-head.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .section-head.center .eyebrow {
+      justify-content: center;
+    }
+
+    h2 {
+      margin: 12px 0 0;
+      font: 700 clamp(31px, 4.4vw, 47px)/1.08 var(--font-display);
+      letter-spacing: -.02em;
+    }
+
+    .section-head p {
+      margin: 16px 0 0;
+      font-size: 17px;
+      color: var(--ink-2);
+    }
+
+    /* ---------- Surfaces strip ---------- */
+    .surfaces {
+      padding: 52px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .surface-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 20px;
+      margin-bottom: 22px;
+    }
+
+    .surface-head h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      margin: 0;
+    }
+
+    .surface-head p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--muted);
+    }
+
+    .surface-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    }
+
+    .surface {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 18px 18px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--ivory);
+    }
+
+    .surface .s-icon {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 8px;
+      border-radius: 11px;
+      background: linear-gradient(145deg, #FCEADF, #F8D9C6);
+      color: var(--ember-text);
+    }
+
+    .surface .s-icon .icon {
+      width: 19px;
+      height: 19px;
+    }
+
+    .surface b {
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .surface small {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .surface code {
+      margin-top: 8px;
+      align-self: flex-start;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--ivory-2);
+      border: 1px solid var(--line);
+      font-size: 11.5px;
+      color: var(--ember-text);
+    }
+
+    /* ---------- Numbers (dark band) ---------- */
+    .numbers {
+      position: relative;
+      overflow: hidden;
+      color: var(--night-text);
+      background:
+        radial-gradient(50% 70% at 15% 0%, rgba(228, 87, 46, .26), transparent 70%),
+        radial-gradient(45% 60% at 95% 100%, rgba(242, 165, 65, .16), transparent 70%),
+        var(--night);
+    }
+
+    .numbers .eyebrow {
+      color: var(--gold);
+    }
+
+    .numbers .eyebrow::before {
+      background: var(--gold);
+    }
+
+    .numbers .section-head p {
+      color: var(--night-muted);
+    }
+
+    .stat-grid {
+      display: grid;
+      gap: 1px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    @media (min-width: 720px) {
+      .stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .stat {
+      position: relative;
+      padding: 26px 22px 24px;
+      background: rgba(20, 15, 11, .94);
+    }
+
+    .stat .num {
+      display: block;
+      font: 700 clamp(38px, 5.4vw, 56px)/1 var(--font-display);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.02em;
+      background: linear-gradient(180deg, #FFCF96, var(--ember));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stat .label {
+      display: block;
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--night-text);
+    }
+
+    .stat .sub {
+      display: block;
+      margin-top: 2px;
+      font-size: 13px;
+      color: var(--night-muted);
+    }
+
+    .stat-grid.static {
+      margin-top: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 720px) {
+      .stat-grid.static {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    .stat-grid.static .num {
+      font-size: clamp(30px, 4vw, 40px);
+      background: none;
+      color: var(--night-text);
+    }
+
+    .stat-grid.static .stat {
+      padding: 22px 20px;
+    }
+
+    .numbers-caption {
+      margin: 34px 0 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--night-muted);
+    }
+
+    .numbers-note {
+      margin: 26px 0 0;
+      font-size: 13px;
+      color: var(--night-muted);
+    }
+
+    /* ---------- Features ---------- */
+    .feature-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .feature-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature {
+      display: flex;
+      flex-direction: column;
+      padding: 26px 24px 22px;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .feature:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-2);
+    }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      color: var(--ember-text);
+      background: linear-gradient(145deg, #FCEADF, #F8D9C6);
+    }
+
+    .feature-icon .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .feature h3 {
+      margin: 18px 0 0;
+      font-size: 19px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .feature p {
+      margin: 8px 0 0;
+      font-size: 15px;
+      color: var(--ink-2);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 18px;
+    }
+
+    .tags span {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ember-text);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--ivory-2);
+    }
+
+    /* ---------- Demo ---------- */
+    .demo-grid {
+      display: grid;
+      gap: 56px 34px;
+      justify-items: center;
+      align-items: start;
+    }
+
+    @media (min-width: 900px) {
+      .demo-grid {
+        grid-template-columns: minmax(0, .74fr) minmax(0, 1.26fr);
+      }
+    }
+
+    .demo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .platform {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .platform-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      flex: none;
+      border-radius: 12px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .platform-icon .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .platform b {
+      display: block;
+      font: 700 19px/1.2 var(--font-display);
+    }
+
+    .platform span {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ---------- Build (highlights + architecture) ---------- */
+    .build-grid {
+      display: grid;
+      gap: 40px;
+    }
+
+    @media (min-width: 1000px) {
+      .build-grid {
+        grid-template-columns: 1.05fr .95fr;
+        align-items: start;
+      }
+    }
+
+    .highlights {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .highlights li {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 4px 12px;
+      padding: 20px 22px;
+    }
+
+    .highlights .n {
+      grid-row: span 2;
+      font: 700 26px/1 var(--font-display);
+      color: var(--ember);
+      padding-top: 2px;
+    }
+
+    .highlights b {
+      font-size: 16.5px;
+      line-height: 1.35;
+    }
+
+    .highlights p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--ink-2);
+    }
+
+    .highlights code {
+      padding: 1px 5px;
+      border-radius: 5px;
+      background: var(--ivory-2);
+      color: var(--ember-text);
+    }
+
+    .arch {
+      padding: 24px 22px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .arch h3 {
+      margin: 0 0 4px;
+      font: 700 20px/1.3 var(--font-display);
+    }
+
+    .arch>p {
+      margin: 0 0 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .tier {
+      border: 1px dashed var(--line-2);
+      border-radius: 16px;
+      padding: 14px;
+      background: var(--ivory);
+    }
+
+    .tier-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ember-text);
+    }
+
+    .nodes {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+    }
+
+    .node {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .node b {
+      display: block;
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+
+    .node small {
+      display: block;
+      margin-top: 2px;
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .node code {
+      font-size: 11px;
+      color: var(--ember-text);
+    }
+
+    .node.hot {
+      border-color: rgba(228, 87, 46, .45);
+      box-shadow: 0 0 0 3px rgba(228, 87, 46, .08);
+    }
+
+    .flow {
+      display: flex;
+      justify-content: center;
+      padding: 6px 0;
+      color: var(--ember);
+    }
+
+    .flow svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .svc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .svc span {
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--ink-2);
+    }
+
+    .tier+.tier-gap {
+      height: 10px;
+    }
+
+    /* ---------- Order lifecycle rail ---------- */
+    .rail {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 30px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .rail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .rail .st {
+      font: 600 12px/1 var(--font-mono);
+      letter-spacing: .02em;
+      padding: 6px 10px;
+      border-radius: 7px;
+      background: var(--ivory-2);
+      border: 1px solid var(--line);
+      color: var(--ink-2);
+    }
+
+    .rail .st.first {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+
+    .rail .st.last {
+      background: rgba(15, 138, 95, .12);
+      border-color: rgba(15, 138, 95, .3);
+      color: var(--veg-text);
+    }
+
+    .rail .st.cancel {
+      background: rgba(179, 38, 30, .09);
+      border-color: rgba(179, 38, 30, .25);
+      color: #93211A;
+    }
+
+    .rail .arrow {
+      color: var(--line-2);
+      font-size: 13px;
+    }
+
+    /* ---------- Tech ---------- */
+    .tech-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    @media (min-width: 760px) {
+      .tech-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .tech {
+      padding: 22px 22px 24px;
+    }
+
+    .tech h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .tech h3 .icon {
+      color: var(--ember-text);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chips span {
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 10px;
+      background: var(--ivory);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    /* ---------- Source code ---------- */
+    .repo-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .repo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .repo {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 20px 22px;
+      text-decoration: none;
+      transition: border-color .2s, transform .2s;
+    }
+
+    a.repo:hover {
+      border-color: var(--ember);
+      transform: translateY(-2px);
+    }
+
+    .repo-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: none;
+      border-radius: 12px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .repo-icon .icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .repo b {
+      display: block;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .repo p {
+      margin: 3px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .repo .repo-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ember-text);
+    }
+
+    .repo .repo-cta .icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .repo .repo-cta.muted {
+      color: var(--muted);
+    }
+
+    .repo.is-missing {
+      border-style: dashed;
+      box-shadow: none;
+    }
+
+    /* ---------- QR flow ---------- */
+    .flowsec {
+      background: linear-gradient(180deg, var(--ivory) 0%, var(--ivory-2) 100%);
+    }
+
+    .flow-grid {
+      display: grid;
+      gap: 34px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .flow-grid {
+        grid-template-columns: 1fr minmax(0, 300px);
+      }
+    }
+
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: start;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .steps .sn {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--ink);
+      color: #fff;
+      font: 700 15px/1 var(--font-display);
+    }
+
+    .steps b {
+      display: block;
+      font-size: 15.5px;
+      line-height: 1.35;
+    }
+
+    .steps p {
+      margin: 3px 0 0;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .steps code {
+      padding: 1px 5px;
+      border-radius: 5px;
+      background: var(--ivory-2);
+      color: var(--ember-text);
+    }
+
+    .qr-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 26px 24px;
+      text-align: center;
+    }
+
+    .qr-card .qr-box {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 1;
+      padding: 12px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .qr-card .qr-box canvas,
+    .qr-card .qr-box img {
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    .qr-card .qr-ph {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+      border: 2px dashed var(--line-2);
+      border-radius: 12px;
+      padding: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .qr-card .qr-ph .icon {
+      width: 30px;
+      height: 30px;
+      color: var(--ember-text);
+    }
+
+    .qr-card b {
+      font: 700 18px/1.3 var(--font-display);
+    }
+
+    .qr-card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--night);
+      color: var(--night-muted);
+      padding: 48px 0 40px;
+      font-size: 14px;
+    }
+
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px 40px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .foot .brand span {
+      color: var(--night-text);
+    }
+
+    .foot p {
+      margin: 12px 0 0;
+      max-width: 52ch;
+    }
+
+    .foot p a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .foot p a:hover {
+      color: var(--gold);
+    }
+
+    .foot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .foot-links a {
+      color: var(--night-text);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .foot-links a:hover {
+      color: var(--gold);
+    }
+
+    .foot-note {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      font-size: 12.5px;
+    }
+
+    /* ---------- Reveal ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .feature:hover,
+      a.repo:hover {
+        transform: none;
+      }
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Shared icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-qr" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 21h1M21 14h.01" />
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path d="M4 3h13a3 3 0 0 1 3 3v15H7a3 3 0 0 1-3-3z" />
+        <path d="M8 8h8M8 12h8M8 16h5" />
+      </symbol>
+      <symbol id="i-fire" viewBox="0 0 24 24">
+        <path d="M12 22c4 0 7-2.7 7-6.5 0-4.5-4-6-4-10-2 1-3 3-3 5-1-.6-1.5-1.6-1.5-3C8 9 5 11.5 5 15.5 5 19.3 8 22 12 22z" />
+      </symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24">
+        <path d="M5 2h14v20l-2.5-1.6L14 22l-2-1.6L10 22l-2.5-1.6L5 22z" />
+        <path d="M9 7h6M9 11h6M9 15h4" />
+      </symbol>
+      <symbol id="i-table" viewBox="0 0 24 24">
+        <path d="M3 8h18M5 8V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2" />
+        <path d="M7 8v12M17 8v12M3 14h18" />
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="m9 12 2 2 4-4" />
+      </symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24">
+        <path d="M13 2 4 14h7l-1 8 9-12h-7z" />
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <path d="M12 18h.01" />
+      </symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <path d="M8 21h8M12 17v4" />
+      </symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </symbol>
+      <symbol id="i-server" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="8" rx="2" />
+        <rect x="2" y="14" width="20" height="8" rx="2" />
+        <path d="M6 6h.01M6 18h.01" />
+      </symbol>
+      <symbol id="i-database" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5" />
+        <path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3" />
+      </symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24">
+        <path d="M12 22v-5M9 8V2M15 8V2M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z" />
+      </symbol>
+      <symbol id="i-building" viewBox="0 0 24 24">
+        <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M15 21V10h4a2 2 0 0 1 2 2v9" />
+        <path d="M9 7h2M9 11h2M9 15h2" />
+      </symbol>
+      <symbol id="i-printer" viewBox="0 0 24 24">
+        <path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2" />
+        <rect x="6" y="14" width="12" height="8" rx="1" />
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path d="M7 17 17 7M7 7h10v10" />
+      </symbol>
+      <symbol id="i-down" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path d="M7 4v16l13-8z" />
+      </symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24">
+        <path d="M8 4v16M16 4v16" />
+      </symbol>
+      <symbol id="i-expand" viewBox="0 0 24 24">
+        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="m22 7-10 6L2 7" />
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path
+          d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path
+          d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="QRDine showcase, back to top">
+        <img src="assets/logo.svg" alt="" width="34" height="34">
+        <span>QRDine</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#numbers">Numbers</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#build">Engineering</a></li>
+        <li><a href="#tech">Tech</a></li>
+        <li data-nav="code"><a href="#code">Code</a></li>
+      </ul>
+      <a class="btn btn-primary" data-href="repoUrl" href="#code">
+        <svg class="icon icon-fill">
+          <use href="#i-github" />
+        </svg> Source
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Product showcase</span>
+          <h1>QRDine</h1>
+          <p class="lead">Scan the code on the table, read the menu, order and pay. One backend runs it for every
+            restaurant on the platform.</p>
+          <div class="byline">
+            <span>Designed &amp; built by <strong><a data-href="site" href="https://abhishekjaiswal.net" target="_blank"
+                  rel="noopener">Abhishek Jaiswal</a></strong></span>
+            <span class="sep" aria-hidden="true"></span>
+            <span data-bind="role">Full-Stack Developer</span>
+            <span class="contact-links" id="contact-links"></span>
+          </div>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="#demo">
+              <svg class="icon icon-fill">
+                <use href="#i-play" />
+              </svg> Watch the demo
+            </a>
+            <a class="btn btn-ghost" href="#build">
+              <svg class="icon">
+                <use href="#i-server" />
+              </svg> How it's built
+            </a>
+            <a class="btn btn-ghost" href="#flow">
+              <svg class="icon">
+                <use href="#i-qr" />
+              </svg> The QR flow
+            </a>
+          </div>
+          <div class="stack-line" aria-label="Core technologies">
+            <span>TypeScript</span><span>Node.js</span><span>Express</span><span>PostgreSQL</span><span>React</span><span>Socket.IO</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="halo" aria-hidden="true"></div>
+          <img class="mark" src="assets/logo.svg" alt="" aria-hidden="true">
+          <div class="float-chip chip-scan">
+            <span class="chip-icon"><svg class="icon">
+                <use href="#i-qr" />
+              </svg></span>
+            <div>Scan the table QR<small>no app, no sign-up</small></div>
+          </div>
+          <div class="float-chip chip-live">
+            <span class="live-dot" aria-hidden="true"></span>
+            <div>Kitchen sees it instantly<small>Socket.IO, no polling</small></div>
+          </div>
+          <div class="hero-shot" id="hero-shot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SURFACES ============ -->
+    <section class="surfaces" id="surfaces">
+      <div class="wrap">
+        <div class="surface-head reveal">
+          <h2>Four apps, one backend</h2>
+          <p>Each surface talks to its own route group, with its own trust level.</p>
+        </div>
+        <div class="surface-grid reveal">
+          <div class="surface">
+            <span class="s-icon"><svg class="icon">
+                <use href="#i-phone" />
+              </svg></span>
+            <b>Customer</b>
+            <small>Mobile-first menu reached by scanning a table QR. Anonymous by design.</small>
+            <code>/api/public</code>
+          </div>
+          <div class="surface">
+            <span class="s-icon"><svg class="icon">
+                <use href="#i-fire" />
+              </svg></span>
+            <b>Cashier &amp; kitchen</b>
+            <small>Live order board, kitchen display, table board, counter entry and billing.</small>
+            <code>/api/staff</code>
+          </div>
+          <div class="surface">
+            <span class="s-icon"><svg class="icon">
+                <use href="#i-menu" />
+              </svg></span>
+            <b>Restaurant admin</b>
+            <small>Menu, tables and QR codes, staff accounts, tax settings and reports.</small>
+            <code>/api/admin</code>
+          </div>
+          <div class="surface">
+            <span class="s-icon"><svg class="icon">
+                <use href="#i-building" />
+              </svg></span>
+            <b>Platform console</b>
+            <small>Onboard a restaurant, provision its owner, set the plan and table limit.</small>
+            <code>/api/platform</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DEMO ============ -->
+    <section class="section section-tint" id="demo">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">See it running</span>
+          <h2>The guest's phone and the counter screen</h2>
+          <p>Two recordings of the same dinner service: one from the table, one from behind the counter.</p>
+        </div>
+        <div class="demo-grid">
+          <div class="demo-item reveal">
+            <div class="device" data-video="customer" data-frame="phone" data-label="Customer phone recording"></div>
+            <div class="platform">
+              <span class="platform-icon"><svg class="icon">
+                  <use href="#i-qr" />
+                </svg></span>
+              <div><b>At the table</b><span>Scan, browse, order, track</span></div>
+            </div>
+          </div>
+          <div class="demo-item reveal">
+            <div class="device" data-video="staff" data-frame="wide" data-label="Cashier and kitchen recording"></div>
+            <div class="platform">
+              <span class="platform-icon"><svg class="icon">
+                  <use href="#i-monitor" />
+                </svg></span>
+              <div><b>Behind the counter</b><span>Live orders, kitchen display, bill and payment</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NUMBERS ============ -->
+    <section class="section numbers" id="numbers">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">The shape of it</span>
+          <h2>A platform, not a single-restaurant app</h2>
+          <p>One deployment serves many restaurants. Every row carries its tenant, and every staff request derives that
+            tenant from the token rather than from the request body.</p>
+        </div>
+
+        <div class="stat-grid reveal" id="scope-stats">
+          <div class="stat"><span class="num" data-count="4">4</span><span class="label">Applications</span><span
+              class="sub">customer, cashier, admin, platform console</span></div>
+          <div class="stat"><span class="num" data-count="59">59</span><span class="label">REST endpoints</span><span
+              class="sub">across 5 route groups</span></div>
+          <div class="stat"><span class="num" data-count="6">6</span><span class="label">Staff roles</span><span
+              class="sub">checked in middleware and again in services</span></div>
+          <div class="stat"><span class="num" data-count="11">11</span><span class="label">Core tables</span><span
+              class="sub">raw parameterized SQL, no ORM</span></div>
+          <div class="stat"><span class="num" data-count="9">9</span><span class="label">Realtime events</span><span
+              class="sub">over 4 Socket.IO room types</span></div>
+          <div class="stat"><span class="num" data-count="3">3</span><span class="label">Ordering modes</span><span
+              class="sub">staff confirm · instant · session required</span></div>
+        </div>
+
+        <p class="numbers-caption reveal">How an order is kept honest</p>
+        <div class="stat-grid static reveal">
+          <div class="stat"><span class="num" data-count="6">6</span><span class="label">Order states</span><span
+              class="sub">plus cancellation, with guarded transitions</span></div>
+          <div class="stat"><span class="num" data-count="1">1</span><span class="label">Row lock per order</span><span
+              class="sub">the table row, held for the whole transaction</span></div>
+          <div class="stat"><span class="num" data-count="4">4</span><span class="label">Payment methods</span><span
+              class="sub">cash, card, UPI, other</span></div>
+          <div class="stat"><span class="num" data-count="0">0</span><span class="label">Floating-point
+              rupees</span><span class="sub">money is integer paise end to end</span></div>
+        </div>
+
+        <p class="numbers-note reveal">These figures describe the codebase, not production traffic.</p>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">What it does</span>
+          <h2>From the scan to the settled bill</h2>
+          <p>Guests order from their own phone with no app and no account. Staff work the same orders from a counter
+            screen, a kitchen display and a waiter view. Owners run the menu, the tables and the numbers from an admin
+            panel.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-qr" />
+              </svg></div>
+            <h3>Scan to order</h3>
+            <p>A QR per table resolves to that restaurant's live menu. Search, categories, veg marks, item notes and a
+              cart that survives a refresh — no download, no login.</p>
+            <div class="tags"><span>Random URL-safe tokens</span><span>Local cart</span><span>Order tracking</span>
+            </div>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-fire" />
+              </svg></div>
+            <h3>Kitchen and counter</h3>
+            <p>A live order board, a kitchen display and counter entry for walk-ins. Accepting an order prints a plain
+              text KOT; the guest's phone sees the status change at the same moment.</p>
+            <div class="tags"><span>KDS</span><span>KOT tickets</span><span>ESC/POS print agent</span></div>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-receipt" />
+              </svg></div>
+            <h3>Table sessions &amp; GST billing</h3>
+            <p>One party occupies one table at a time. Their orders roll into a session, the bill takes a fiscal-year
+              number, and CGST and SGST are split per the restaurant's own tax settings.</p>
+            <div class="tags"><span>Fiscal-year counters</span><span>CGST / SGST</span><span>Cash · card · UPI</span>
+            </div>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-bolt" />
+              </svg></div>
+            <h3>Menu that changes mid-service</h3>
+            <p>Mark a dish unavailable from the counter and every phone reading that restaurant's menu updates on the
+              spot. Orders already placed keep their own price and name.</p>
+            <div class="tags"><span>Socket.IO rooms</span><span>Availability broadcast</span><span>Item
+                snapshots</span></div>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-table" />
+              </svg></div>
+            <h3>Tables &amp; printable QR codes</h3>
+            <p>Create tables one at a time or in bulk, download a single QR as a PNG, or print a sheet for the whole
+              floor. Regenerating a token invalidates the old printed code immediately.</p>
+            <div class="tags"><span>QR PNG</span><span>Printable sheet</span><span>Token rotation</span></div>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature-icon"><svg class="icon">
+                <use href="#i-shield" />
+              </svg></div>
+            <h3>Multi-tenant by construction</h3>
+            <p>The restaurant is derived from the staff member's token or from the scanned QR — never from the request
+              body. Queries carry both the entity id and the tenant id, so one restaurant cannot read another's data.</p>
+            <div class="tags"><span>JWT tenancy</span><span>Row-scoped SQL</span><span>Audit log</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHAT I BUILT ============ -->
+    <section class="section section-tint" id="build">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Engineering</span>
+          <h2>The parts that had to be right</h2>
+          <p>A restaurant floor is a concurrency problem with cutlery. These are the decisions that keep the money and
+            the tenancy correct when three people order from the same table at once.</p>
+        </div>
+        <div class="build-grid">
+          <ol class="highlights">
+            <li class="card reveal"><span class="n">01</span><b>Four front ends on one API</b>
+              <p>A customer app, a cashier/kitchen app, a restaurant admin panel and a platform console, served by one
+                Express backend across five route groups — each with its own authentication story.</p>
+            </li>
+            <li class="card reveal"><span class="n">02</span><b>The client never sets a price</b>
+              <p>Order creation locks the table row, re-reads every item from PostgreSQL, rejects archived or
+                unavailable dishes, merges duplicate lines, applies the restaurant's tax mode and writes an immutable
+                snapshot of each line.</p>
+            </li>
+            <li class="card reveal"><span class="n">03</span><b>Tenancy as a boundary, not a convention</b>
+              <p>Staff requests take <code>restaurant_id</code> from the JWT; guest requests take it from the QR token.
+                No endpoint accepts a tenant id from the body, and queries filter on entity id <em>and</em> tenant id.
+              </p>
+            </li>
+            <li class="card reveal"><span class="n">04</span><b>Counters allocated inside the transaction</b>
+              <p>Per-restaurant daily order numbers and fiscal-year bill numbers are handed out under the same lock that
+                creates the row, so a busy Saturday can't produce two order #14s.</p>
+            </li>
+            <li class="card reveal"><span class="n">05</span><b>Realtime instead of polling</b>
+              <p>Four room types — restaurant, menu, table and order. Staff sockets authenticate with a JWT in the
+                handshake; guest sockets prove each order with its access token before they're allowed into that room.
+              </p>
+            </li>
+            <li class="card reveal"><span class="n">06</span><b>Money in integer paise</b>
+              <p>Every subtotal, tax split and total is computed in paise and converted once at the edge, so a 5% CGST
+                on ₹347.50 doesn't drift a rupee over a night's billing.</p>
+            </li>
+          </ol>
+
+          <aside class="card arch reveal" aria-label="System architecture">
+            <h3>How it fits together</h3>
+            <p>One deployment, four surfaces, one PostgreSQL. The trust level changes per route group.</p>
+            <div class="tier">
+              <span class="tier-label">Surfaces · React 18 + Vite</span>
+              <div class="nodes">
+                <div class="node hot"><b>Customer</b><small>mobile web · <code>/m/:qrToken</code></small></div>
+                <div class="node"><b>Cashier &amp; KDS</b><small>counter · kitchen · waiter</small></div>
+                <div class="node"><b>Admin + platform</b><small>owner · manager · platform</small></div>
+              </div>
+            </div>
+            <div class="flow" aria-hidden="true"><svg class="icon">
+                <use href="#i-down" />
+              </svg></div>
+            <div class="tier">
+              <span class="tier-label">API · Node.js + Express + TypeScript</span>
+              <div class="nodes">
+                <div class="node hot"><b>Public</b><small>QR token → table</small></div>
+                <div class="node"><b>Staff</b><small>JWT + role</small></div>
+                <div class="node"><b>Admin</b><small>owner · manager</small></div>
+                <div class="node"><b>Platform</b><small>platform admin</small></div>
+              </div>
+            </div>
+            <div class="flow" aria-hidden="true"><svg class="icon">
+                <use href="#i-down" />
+              </svg></div>
+            <div class="tier">
+              <span class="tier-label">Data &amp; realtime</span>
+              <div class="nodes">
+                <div class="node"><b>PostgreSQL</b><small>raw SQL · transactions</small></div>
+                <div class="node"><b>Socket.IO</b><small>4 room types</small></div>
+                <div class="node"><b>Migrations + seed</b><small>schema in version control</small></div>
+              </div>
+            </div>
+            <div class="tier-gap"></div>
+            <div class="tier">
+              <span class="tier-label">Cross-cutting</span>
+              <div class="svc">
+                <span>JWT + rotating refresh</span><span>bcrypt</span><span>Zod</span><span>Helmet</span><span>Rate
+                  limiting</span><span>Multer uploads</span><span>QR generation</span><span>Pino</span><span>Audit
+                  log</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="rail reveal" aria-label="Order lifecycle">
+          <span class="rail-label">Order lifecycle</span>
+          <span class="st first">NEW</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="st">ACCEPTED</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="st">PREPARING</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="st">READY</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="st">SERVED</span><span class="arrow" aria-hidden="true">→</span>
+          <span class="st last">COMPLETED</span>
+          <span class="st cancel">CANCELLED</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECH ============ -->
+    <section class="section" id="tech">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Tech stack</span>
+          <h2>What it runs on</h2>
+        </div>
+        <div class="tech-grid">
+          <div class="card tech reveal">
+            <h3><svg class="icon">
+                <use href="#i-monitor" />
+              </svg>Front ends</h3>
+            <div class="chips"><span>React 18</span><span>React Router 6</span><span>Vite 6</span><span>TypeScript
+                (strict)</span><span>Tailwind CSS 4</span><span>Socket.IO client</span></div>
+          </div>
+          <div class="card tech reveal">
+            <h3><svg class="icon">
+                <use href="#i-server" />
+              </svg>Backend</h3>
+            <div class="chips"><span>Node.js 20</span><span>Express
+                4</span><span>TypeScript</span><span>Zod</span><span>JWT</span><span>bcryptjs</span><span>Multer</span><span>qrcode</span><span>Pino</span>
+            </div>
+          </div>
+          <div class="card tech reveal">
+            <h3><svg class="icon">
+                <use href="#i-database" />
+              </svg>Data &amp; realtime</h3>
+            <div class="chips"><span>PostgreSQL 14+</span><span>pg — no ORM</span><span>SQL
+                migrations</span><span>Transactions + row locks</span><span>Socket.IO</span><span>Integer-paise
+                money</span></div>
+          </div>
+          <div class="card tech reveal">
+            <h3><svg class="icon">
+                <use href="#i-plug" />
+              </svg>Security &amp; ops</h3>
+            <div class="chips"><span>Helmet</span><span>CORS allowlist</span><span>express-rate-limit</span><span>Rotating
+                refresh tokens</span><span>Audit log</span><span>Docker Compose</span><span>ESC/POS print
+                agent</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOURCE CODE ============ -->
+    <section class="section section-tint" id="code">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Source code</span>
+          <h2>On GitHub</h2>
+        </div>
+        <div class="repo-grid" id="repo-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ QR FLOW ============ -->
+    <section class="section flowsec" id="flow">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">How the QR works</span>
+          <h2>Four steps from print to payment</h2>
+          <p>Every table has its own code. The code is the whole session key — there is nothing for the guest to
+            install or remember.</p>
+        </div>
+        <div class="flow-grid">
+          <ol class="steps reveal">
+            <li><span class="sn">1</span>
+              <div><b>The owner creates a table</b>
+                <p>The backend mints a cryptographically random, URL-safe token and builds the menu link as
+                  <code>/m/{qrToken}</code>. Admin downloads a PNG, or a printable sheet for the whole floor.</p>
+              </div>
+            </li>
+            <li><span class="sn">2</span>
+              <div><b>A guest scans it</b>
+                <p>The token resolves to a table and a restaurant. The server checks the table is active, the restaurant
+                  is live and the subscription hasn't lapsed before it returns a single menu payload.</p>
+              </div>
+            </li>
+            <li><span class="sn">3</span>
+              <div><b>They order</b>
+                <p>The cart posts item ids and quantities — never prices. The server locks the table, opens or joins a
+                  session, prices everything itself, and pushes <code>order:new</code> to the kitchen.</p>
+              </div>
+            </li>
+            <li><span class="sn">4</span>
+              <div><b>The table settles</b>
+                <p>Staff generate the bill from the session, take cash, card or UPI, and closing it completes the
+                  served orders and clears any open waiter requests in the same transaction.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="card qr-card reveal" id="qr-card">
+            <div class="qr-box" id="qr-box">
+              <div class="qr-ph">
+                <svg class="icon">
+                  <use href="#i-qr" />
+                </svg>
+                <span>Set <code>CONFIG.demo.url</code> to show a real, scannable QR here</span>
+              </div>
+            </div>
+            <div>
+              <b id="qr-title">One code per table</b>
+              <p id="qr-sub">Rotate it and the old printed code stops working.</p>
+            </div>
+            <a class="btn btn-primary" id="qr-btn" hidden target="_blank" rel="noopener">
+              <svg class="icon">
+                <use href="#i-arrow" />
+              </svg> <span>Open the demo menu</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="34"
+              height="34"><span>QRDine</span></a>
+          <p>Showcase by <strong style="color:var(--night-text)"><a data-href="site" href="https://abhishekjaiswal.net"
+                target="_blank" rel="noopener">Abhishek Jaiswal</a></strong>, <span data-bind="role">Full-Stack
+              Developer</span>.</p>
+        </div>
+        <ul class="foot-links" id="foot-links"></ul>
+      </div>
+      <p class="foot-note">QRDine is a multi-tenant QR table-ordering platform. The numbers on this page describe the
+        codebase — endpoints, roles, tables and events — not production traffic.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ================================================================
+       EDIT HERE: everything you'll want to change lives in CONFIG.
+       ----------------------------------------------------------------
+       Videos: drop files into assets/videos/ with these names, or point
+       `src` at any hosted .mp4. A missing file shows a placeholder.
+       Hero:   leave `src` empty to use the built-in menu mock, or point
+               it at a real screenshot of the customer app.
+       Demo:   set demo.url to a live /m/<qrToken> link to render a real
+               scannable QR and an "Open the demo menu" button.
+       GitHub: add a url, or set private:true to show "Private repo".
+       ================================================================ */
+    const CONFIG = {
+      name: "Abhishek Jaiswal",
+      role: "Full-Stack Developer",
+
+      site: "https://abhishekjaiswal.net",
+      contact: {
+        email: "abhishekjaiswal0203@gmail.com",
+        linkedin: "https://www.linkedin.com/in/abhishekj-t800/",
+        github: "https://github.com/Abhishek25062001",
+      },
+
+      // Main repository. Used by the "Source" button in the nav.
+      // Leave empty and the button just scrolls to the Code section.
+      repoUrl: "https://github.com/Abhishek25062001/QRMenuRestaurant",
+
+      // Live demo table link, e.g. "https://menu.example.com/m/AbC123…".
+      // Empty = no QR is drawn (the card explains how to enable it).
+      demo: { url: "", label: "Open the demo menu" },
+
+      // Hero image. "" = the built-in customer-menu mock (recommended
+      // until you have a screenshot). framed:true wraps a plain screen
+      // capture in the phone frame; framed:false expects a transparent
+      // PNG that already contains the device.
+      hero: { src: "", framed: true, alt: "QRDine customer menu on a phone" },
+
+      videos: {
+        customer: { src: "assets/videos/customer.mp4", poster: "" },
+        staff: { src: "assets/videos/staff.mp4", poster: "" },
+      },
+
+      github: [
+        { label: "QRDine — full platform", description: "Backend, customer, cashier and admin apps", url: "https://github.com/Abhishek25062001/QRMenuRestaurant", private: false },
+        { label: "This showcase", description: "Single-file HTML · no build step", url: "", private: false },
+      ],
+
+      /* Optional: live numbers.
+         There is no public QRDine API today, so the Numbers section is
+         static text in the HTML (each tile carries a data-count). If you
+         deploy a public read-only endpoint later, fill this in and add
+         matching loaders in the LIVE NUMBERS block further down.
+           api: "https://api.example.com/api",
+      */
+    };
+
+    (() => {
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+      const isPreview = location.protocol === "file:" || ["localhost", "127.0.0.1", ""].includes(location.hostname);
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const svg = (id, cls = "icon") => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+      /* ---------- Text + links from CONFIG ---------- */
+      $$("[data-bind]").forEach((el) => { const v = CONFIG[el.dataset.bind]; if (v) el.textContent = v; });
+      $$("[data-href]").forEach((el) => { const v = CONFIG[el.dataset.href]; if (v) el.href = v; });
+      if (CONFIG.name) document.title = `QRDine · ${CONFIG.name}`;
+
+      const contacts = [
+        CONFIG.contact.email && { href: `mailto:${CONFIG.contact.email}`, icon: "i-mail", label: "Email", fill: false },
+        CONFIG.contact.linkedin && { href: CONFIG.contact.linkedin, icon: "i-linkedin", label: "LinkedIn", fill: true },
+        CONFIG.contact.github && { href: CONFIG.contact.github, icon: "i-github", label: "GitHub profile", fill: true },
+      ].filter(Boolean);
+      $("#contact-links").innerHTML = contacts.map((c) =>
+        `<a href="${esc(c.href)}" target="_blank" rel="noopener" aria-label="${c.label}" title="${c.label}">${svg(c.icon, c.fill ? "icon icon-fill" : "icon")}</a>`).join("");
+      $("#foot-links").innerHTML = [
+        CONFIG.site && `<li><a href="${esc(CONFIG.site)}" target="_blank" rel="noopener">Portfolio</a></li>`,
+        ...contacts.map((c) => `<li><a href="${esc(c.href)}" target="_blank" rel="noopener">${c.label}</a></li>`),
+      ].filter(Boolean).join("");
+
+      /* ---------- The built-in customer-menu mock ---------- */
+      const dish = (name, note, price, veg, out) =>
+        `<div class="mock-dish${out ? " out" : ""}">
+           <span class="vegmark${veg ? "" : " non"}"></span>
+           <div><b>${name}</b><small>${note}</small></div>
+           <span class="price">${out ? "Sold out" : price}</span>
+         </div>`;
+      const MOCK = `
+        <div class="mock" aria-hidden="true">
+          <div class="mock-top">
+            <span class="mock-logo">SD</span>
+            <div><b>Spice District</b><small><i></i>Table 7 · session open</small></div>
+          </div>
+          <div class="mock-search">Search dishes</div>
+          <div class="mock-cats"><span class="on">Starters</span><span>Mains</span><span>Breads</span><span>Drinks</span></div>
+          <div class="mock-list">
+            ${dish("Paneer Tikka", "Charred, chaat masala", "₹320", true, false)}
+            ${dish("Galouti Kebab", "Slow-cooked, warm spice", "₹420", false, false)}
+            ${dish("Dal Makhani", "Overnight on the tandoor", "₹280", true, false)}
+            ${dish("Tandoori Prawns", "Kitchen ran out", "", false, true)}
+          </div>
+          <div class="mock-cart"><span>3 items · ₹1,020</span><b>Place order</b></div>
+        </div>`;
+
+      /* ---------- Videos ---------- */
+      const videoObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+        entries.forEach(({ target: v, isIntersecting }) => {
+          if (v.dataset.userPaused === "1" || reduceMotion) return;
+          if (isIntersecting) v.play().catch(() => { }); else v.pause();
+        });
+      }, { threshold: 0.35 }) : null;
+
+      function mountDevice(device) {
+        const key = device.dataset.video;
+        const cfg = CONFIG.videos[key] || {};
+        const wide = device.dataset.frame === "wide";
+        if (wide) device.classList.add("wide");
+        device.innerHTML = `<div class="phone"><div class="screen"></div></div>`;
+        const screen = $(".screen", device);
+        const placeholder = () => {
+          screen.innerHTML = `<div class="screen-ph"><img src="assets/logo.svg" alt=""><b>QRDine</b>${isPreview
+            ? `<span>Add your recording at</span><code>${esc(cfg.src || `CONFIG.videos.${key}.src`)}</code>`
+            : `<span>${esc(device.dataset.label || "Demo")} coming soon</span>`}</div>`;
+          $(".device-ctrls", device)?.remove();
+        };
+        if (!cfg.src) return placeholder();
+
+        const v = document.createElement("video");
+        v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
+        v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+        v.setAttribute("aria-label", `${device.dataset.label || "App"} video`);
+        if (cfg.poster) v.poster = cfg.poster;
+        v.addEventListener("error", placeholder, { once: true });
+        v.addEventListener("loadedmetadata", () => {
+          // Trust the file's real aspect ratio over the declared frame.
+          device.classList.toggle("is-landscape", v.videoWidth > v.videoHeight);
+          device.classList.toggle("wide", v.videoWidth > v.videoHeight);
+        });
+        v.src = cfg.src;
+        screen.append(v);
+
+        const ctrls = document.createElement("div");
+        ctrls.className = "device-ctrls";
+        ctrls.innerHTML = `<button type="button" data-act="toggle" aria-label="Pause video">${svg("i-pause")}</button>
+                           <button type="button" data-act="full" aria-label="Watch full screen with sound">${svg("i-expand")}</button>`;
+        device.append(ctrls);
+        const toggleBtn = $('[data-act="toggle"]', ctrls);
+        const syncToggle = () => {
+          toggleBtn.innerHTML = v.paused ? svg("i-play", "icon icon-fill") : svg("i-pause");
+          toggleBtn.setAttribute("aria-label", v.paused ? "Play video" : "Pause video");
+        };
+        v.addEventListener("play", syncToggle); v.addEventListener("pause", syncToggle); syncToggle();
+        toggleBtn.addEventListener("click", () => {
+          if (v.paused) { v.dataset.userPaused = "0"; v.play().catch(() => { }); } else { v.dataset.userPaused = "1"; v.pause(); }
+        });
+        $('[data-act="full"]', ctrls).addEventListener("click", () => {
+          v.muted = false; v.controls = true; v.play().catch(() => { });
+          if (v.requestFullscreen) v.requestFullscreen().catch(() => { });
+          else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+        });
+        document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) { v.controls = false; v.muted = true; } });
+        v.addEventListener("webkitendfullscreen", () => { v.controls = false; v.muted = true; });
+
+        if (videoObserver) videoObserver.observe(v);
+        else if (!reduceMotion) v.play().catch(() => { });
+      }
+      $$(".device[data-video]").forEach(mountDevice);
+
+      /* ---------- Hero: real screenshot, or the built-in mock ---------- */
+      (function renderHero() {
+        const host = $("#hero-shot");
+        const { src, framed, alt } = CONFIG.hero || {};
+        const phone = (inner) => `<div class="device"><div class="phone"><div class="screen">${inner}</div></div></div>`;
+        const mock = () => { host.innerHTML = phone(MOCK); };
+        if (!src) return mock();
+        const img = new Image();
+        img.alt = alt || "QRDine customer menu";
+        img.decoding = "async";
+        img.fetchPriority = "high";
+        img.onerror = mock;
+        img.className = framed ? "screen-img" : "hero-img";
+        img.src = src;
+        if (framed) { host.innerHTML = phone(""); $(".screen", host).append(img); }
+        else { host.innerHTML = ""; host.append(img); }
+      })();
+
+      /* ---------- GitHub repos ---------- */
+      (function renderRepos() {
+        const grid = $("#repo-grid");
+        const repos = (CONFIG.github || []).filter((r) => r.url || r.private || isPreview);
+        if (!repos.length) { $("#code").hidden = true; $('[data-nav="code"]').hidden = true; return; }
+        grid.innerHTML = repos.map((r) => {
+          const inner = `
+            <span class="repo-icon">${svg(r.private ? "i-lock" : "i-github", r.private ? "icon" : "icon icon-fill")}</span>
+            <div>
+              <b>${esc(r.label)}</b>
+              <p>${esc(r.description || "")}</p>
+              ${r.url ? `<span class="repo-cta">View repository ${svg("i-arrow")}</span>`
+              : r.private ? `<span class="repo-cta muted">Private repo · walkthrough on request</span>`
+                : `<span class="repo-cta muted">Add a url in CONFIG.github</span>`}
+            </div>`;
+          return r.url
+            ? `<a class="card repo reveal in" href="${esc(r.url)}" target="_blank" rel="noopener">${inner}</a>`
+            : `<div class="card repo reveal in${r.private ? "" : " is-missing"}">${inner}</div>`;
+        }).join("");
+      })();
+
+      /* ---------- Demo QR (only when CONFIG.demo.url is set) ---------- */
+      (function renderQR() {
+        const url = (CONFIG.demo && CONFIG.demo.url || "").trim();
+        if (!url) return;                       // keep the explainer placeholder
+        const box = $("#qr-box"), btn = $("#qr-btn");
+        $("#qr-title").textContent = "Scan to try it";
+        $("#qr-sub").textContent = "Opens the live demo menu for one table.";
+        btn.href = url;
+        $("span", btn).textContent = CONFIG.demo.label || "Open the demo menu";
+        btn.hidden = false;
+
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = "https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js";
+        s.onload = () => {
+          if (!window.QRCode) return;
+          const canvas = document.createElement("canvas");
+          window.QRCode.toCanvas(canvas, url, { margin: 0, width: 512, color: { dark: "#17120E", light: "#FFFFFF" } }, (err) => {
+            if (err) return;
+            canvas.setAttribute("role", "img");
+            canvas.setAttribute("aria-label", `QR code linking to ${url}`);
+            box.innerHTML = "";
+            box.append(canvas);
+          });
+        };
+        document.body.append(s);                // on failure the placeholder stays
+      })();
+
+      /* ---------- LIVE NUMBERS (disabled — no public API yet) ----------
+         To switch the Numbers section from static to live:
+           1. set CONFIG.api to a public, CORS-open read-only base URL
+           2. give each tile a data-stat="<key>" attribute in the HTML
+           3. add a loader per key below and uncomment the block
+         Each tile keeps its data-count value as the fallback.
+
+      const loaders = {
+        restaurants: async () => (await getJSON(`${CONFIG.api}/stats/restaurants`)).total,
+      };
+      ------------------------------------------------------------------ */
+
+      /* ---------- Count-ups, scroll reveal, nav ---------- */
+      const fmt = (n) => Number(n).toLocaleString("en-IN");
+      function countUp(el, to, suffix = "") {
+        if (reduceMotion || !Number.isFinite(to)) { el.textContent = fmt(to) + suffix; return; }
+        const start = performance.now(), dur = 1200;
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          el.textContent = fmt(Math.round(to * (1 - Math.pow(1 - p, 3)))) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add("in");
+            $$("[data-count]", e.target).forEach((n) => countUp(n, +n.dataset.count, n.dataset.suffix || ""));
+            io.unobserve(e.target);
+          });
+        }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+        $$(".reveal").forEach((el) => io.observe(el));
+      } else {
+        $$(".reveal").forEach((el) => el.classList.add("in"));
+      }
+
+      const nav = $("#nav");
+      const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
+      addEventListener("scroll", onScroll, { passive: true }); onScroll();
+    })();
+  </script>
+</body>
+
+</html>
