@@ -484,31 +484,20 @@
       height: 16px;
     }
 
+    /* Anchored to the phone (290px wide, centred), not to the column, so they
+       always land beside the screen instead of on top of the menu content.
+       145px = half the phone; 24px of deliberate overlap onto the bezel. */
     .chip-scan {
-      top: 10%;
-      left: -6px;
+      top: 8%;
+      right: calc(50% + 121px);
     }
 
     .chip-live {
-      bottom: 12%;
-      right: -6px;
+      bottom: 15%;
+      left: calc(50% + 121px);
     }
 
-    @media (min-width: 960px) {
-
-      /* Sit beside the phone rather than on top of the menu content */
-      .chip-scan {
-        top: 8%;
-        left: -48px;
-      }
-
-      .chip-live {
-        bottom: 15%;
-        right: -48px;
-      }
-    }
-
-    @media (max-width: 719px) {
+    @media (max-width: 1239px) {
 
       /* Not enough room to float beside the phone — stack the chips under it */
       .hero-visual {
